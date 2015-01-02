@@ -40,16 +40,26 @@ function wpcf7_cm_add_campaignmonitor($args) {
 	<div class="half-left">
 		<div class="mail-field">
 			<label for="wpcf7-campaignmonitor-email"><?php echo esc_html( __( 'Subscriber Email:', 'wpcf7' ) ); ?></label><br />
-			<input type="text" id="wpcf7-campaignmonitor-email" name="wpcf7-campaignmonitor[email]" class="wide" size="70" value="<?php echo esc_attr( $cf7_cm['email'] ); ?>" />
+			<input type="text" id="wpcf7-campaignmonitor-email" name="wpcf7-campaignmonitor[email]" class="wide" size="70" value="<?php echo array_key_exists('email', $cf7_cm) ? esc_attr( $cf7_cm['email'] ) : ''; ?>" />
 		</div>
 
 		<div class="mail-field">
 		<label for="wpcf7-campaignmonitor-name"><?php echo esc_html( __( 'Subscriber Name:', 'wpcf7' ) ); ?></label><br />
-		<input type="text" id="wpcf7-campaignmonitor-name" name="wpcf7-campaignmonitor[name]" class="wide" size="70" value="<?php echo esc_attr( $cf7_cm['name'] ); ?>" />
+		<input type="text" id="wpcf7-campaignmonitor-name" name="wpcf7-campaignmonitor[name]" class="wide" size="70" value="<?php echo array_key_exists('name', $cf7_cm) ? esc_attr( $cf7_cm['name'] ) : ''; ?>" />
 		</div>
-
+		
+		<div class="mail-field">
+		<label for="wpcf7-campaignmonitor-accept"><?php echo esc_html( __( 'Accept Field:', 'wpcf7' ) ); ?></label><br />
+		<input type="text" id="wpcf7-campaignmonitor-accept" name="wpcf7-campaignmonitor[accept]" class="wide" size="70" value="<?php echo array_key_exists('accept', $cf7_cm) ? esc_attr( $cf7_cm['accept'] ) : ''; ?>" />
+		</div>
+		
 		<div class="mail-field"><br/>
-		<input type="checkbox" id="wpcf7-campaignmonitor-cf-active" name="wpcf7-campaignmonitor[cfactive]" value="1"<?php echo ( $cf7_cm['cfactive'] ) ? ' checked="checked"' : ''; ?> />
+		<input type="checkbox" id="wpcf7-campaignmonitor-resubscribeoption" name="wpcf7-campaignmonitor[resubscribeoption]" value="1"<?php echo ( array_key_exists('resubscribeoption', $cf7_cm) ? $cf7_cm['resubscribeoption'] : false ) ? ' checked="checked"' : ''; ?> />
+		<label for="wpcf7-campaignmonitor-resubscribeoption"><?php echo esc_html( __( 'Allow Users to Resubscribe after being Deleted or Unsubscribed? (checked = true)', 'wpcf7' ) ); ?></label><br/><br/>
+		</div>
+		
+		<div class="mail-field">
+		<input type="checkbox" id="wpcf7-campaignmonitor-cf-active" name="wpcf7-campaignmonitor[cfactive]" value="1"<?php echo ( array_key_exists('cfactive', $cf7_cm) ? $cf7_cm['cfactive'] : false ) ? ' checked="checked"' : ''; ?> />
 		<label for="wpcf7-campaignmonitor-cfactive"><?php echo esc_html( __( 'Use Custom Fields', 'wpcf7' ) ); ?></label><br/><br/>
 		</div>
 	</div>
@@ -57,17 +67,12 @@ function wpcf7_cm_add_campaignmonitor($args) {
 	<div class="half-right">
 		<div class="mail-field">
 		<label for="wpcf7-campaignmonitor-api"><?php echo esc_html( __( 'API Key:', 'wpcf7' ) ); ?></label><br />
-		<input type="text" id="wpcf7-campaignmonitor-api" name="wpcf7-campaignmonitor[api]" class="wide" size="70" value="<?php echo esc_attr( $cf7_cm['api'] ); ?>" />
+		<input type="text" id="wpcf7-campaignmonitor-api" name="wpcf7-campaignmonitor[api]" class="wide" size="70" value="<?php echo array_key_exists('api', $cf7_cm) ? esc_attr( $cf7_cm['api'] ) : ''; ?>" />
 		</div>
 
 		<div class="mail-field">
 		<label for="wpcf7-campaignmonitor-list"><?php echo esc_html( __( 'List ID:', 'wpcf7' ) ); ?></label><br />
-		<input type="text" id="wpcf7-campaignmonitor-list" name="wpcf7-campaignmonitor[list]" class="wide" size="70" value="<?php echo esc_attr( $cf7_cm['list'] ); ?>" />
-		</div>
-
-		<div class="mail-field"><br/>
-		<input type="checkbox" id="wpcf7-campaignmonitor-resubscribeoption" name="wpcf7-campaignmonitor[resubscribeoption]" value="1"<?php echo ( $cf7_cm['resubscribeoption'] ) ? ' checked="checked"' : ''; ?> />
-		<label for="wpcf7-campaignmonitor-resubscribeoption"><?php echo esc_html( __( 'Allow Users to Resubscribe after being Deleted or Unsubscribed? (checked = true)', 'wpcf7' ) ); ?></label><br/><br/>
+		<input type="text" id="wpcf7-campaignmonitor-list" name="wpcf7-campaignmonitor[list]" class="wide" size="70" value="<?php echo array_key_exists('list', $cf7_cm) ? esc_attr( $cf7_cm['list'] ) : ''; ?>" />
 		</div>
 	</div>
 
@@ -78,13 +83,13 @@ function wpcf7_cm_add_campaignmonitor($args) {
 			<div class="half-left">
 				<div class="mail-field">
 				<label for="wpcf7-campaignmonitor-CustomKey<?php echo $i; ?>"><?php echo esc_html( __( 'Custom Field Name '.$i.':', 'wpcf7' ) ); ?></label><br />
-				<input type="text" id="wpcf7-campaignmonitor-CustomKey<?php echo $i; ?>" name="wpcf7-campaignmonitor[CustomKey<?php echo $i; ?>]" class="wide" size="70" value="<?php echo esc_attr( $cf7_cm['CustomKey'.$i] ); ?>" />
+				<input type="text" id="wpcf7-campaignmonitor-CustomKey<?php echo $i; ?>" name="wpcf7-campaignmonitor[CustomKey<?php echo $i; ?>]" class="wide" size="70" value="<?php echo array_key_exists('CustomKey' . $i, $cf7_cm) ? esc_attr( $cf7_cm['CustomKey'.$i] ) : ''; ?>" />
 				</div>
 			</div>
 			<div class="half-right">
 				<div class="mail-field">
 				<label for="wpcf7-campaignmonitor-CustomValue<?php echo $i; ?>"><?php echo esc_html( __( 'Form Value '.$i.':', 'wpcf7' ) ); ?></label><br />
-				<input type="text" id="wpcf7-campaignmonitor-CustomValue<?php echo $i; ?>" name="wpcf7-campaignmonitor[CustomValue<?php echo $i; ?>]" class="wide" size="70" value="<?php echo esc_attr( $cf7_cm['CustomValue'.$i] ); ?>" />
+				<input type="text" id="wpcf7-campaignmonitor-CustomValue<?php echo $i; ?>" name="wpcf7-campaignmonitor[CustomValue<?php echo $i; ?>]" class="wide" size="70" value="<?php echo array_key_exists('CustomValue' . $i, $cf7_cm) ? esc_attr( $cf7_cm['CustomValue'.$i] ) : ''; ?>" />
 				</div>
 			</div>
 			<br class="clear" />
@@ -131,7 +136,9 @@ function wpcf7_cm_subscribe($obj)
 		{
 			$subscribe = true;
 		}
-
+		
+		$CustomFields = array();
+		
 		for($i=1;$i<=20;$i++){
 
 			if( isset($cf7_cm['CustomKey'.$i]) && isset($cf7_cm['CustomValue'.$i]) && strlen(trim($cf7_cm['CustomValue'.$i])) != 0 )
